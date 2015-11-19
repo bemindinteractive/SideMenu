@@ -15,6 +15,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.AccessibilityDelegateCompat;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v4.view.ViewCompat;
@@ -35,7 +36,9 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
+import me.bemind.sidemenu.exception.SideMenuBottomPanelChildException;
 import me.bemind.sidemenu.exception.SideMenuChildException;
+import me.bemind.sidemenu.exception.SideMenuSlidingPanelChildException;
 
 /**
  * Created by debug on 17/11/15.
@@ -110,6 +113,11 @@ public class SideMenu extends ViewGroup {
      * If no fade color is given by default it will fade to 80% gray.
      */
     private static final int DEFAULT_FADE_COLOR = 0xcccccccc;
+
+    /**
+     * constant of parallax
+     */
+    private static final int PARALLAX_DISTANCE = 200;
 
     /**
      * The fade color used for the sliding panel. 0 = no fading.
@@ -278,9 +286,25 @@ public class SideMenu extends ViewGroup {
 
             //ll.setYFraction(v*0.05f);
 
-            panel.setPivotX(0f);
-            panel.setScaleY(scaleFactor);
-            panel.setScaleX(scaleFactor);
+
+
+            if(panel instanceof ViewGroup){
+                ViewGroup vg = (ViewGroup) panel;
+//                Log.d(TAG,"SlidingPanel "+vg.toString());
+//                Log.d(TAG,"SlidingPanel child count"+vg.getChildCount());
+
+                if(vg.getChildCount() > 1) throw new SideMenuSlidingPanelChildException(SideMenuSlidingPanelChildException.LIMIT_CHILD_STRING);
+                View child = vg.getChildAt(0); //first child
+
+                child.setPivotX(0f);
+                child.setScaleX(scaleFactor);
+                child.setScaleY(scaleFactor);
+            }else {
+                panel.setPivotX(0f);
+                panel.setScaleY(scaleFactor);
+                panel.setScaleX(scaleFactor);
+
+            }
 
             bottomPanel.setScaleX(scaleFactor2);
             bottomPanel.setScaleY(scaleFactor2);
@@ -330,6 +354,8 @@ public class SideMenu extends ViewGroup {
         mDragHelper.setMinVelocity(MIN_FLING_VELOCITY * density);
 
         setPanelSlideListener(new MenuPanelSlideListener());
+        setSliderFadeColor(ContextCompat.getColor(context, android.R.color.transparent));
+        setParallaxDistance(PARALLAX_DISTANCE);
     }
 
     /**
