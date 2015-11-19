@@ -35,6 +35,8 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
+import me.bemind.sidemenu.exception.SideMenuChildException;
+
 /**
  * Created by debug on 17/11/15.
  */
@@ -561,6 +563,8 @@ public class SideMenu extends ViewGroup {
         // First pass. Measure based on child LayoutParams width/height.
         // Weight will incur a second pass.
         for (int i = 0; i < childCount; i++) {
+
+            if(childCount>2 ) throw new SideMenuChildException();
             final View child = getChildAt(i);
             final LayoutParams lp = (LayoutParams) child.getLayoutParams();
 
