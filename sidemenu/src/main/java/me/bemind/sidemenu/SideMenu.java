@@ -270,7 +270,7 @@ public class SideMenu extends ViewGroup {
         }
     }
 
-    public static class MenuPanelSlideListener implements PanelSlideListener {
+    public static abstract class MenuPanelSlideListener implements PanelSlideListener {
 
         private static final float OFFSET_DIFF = 0.25f;
         private static final float MENU_START_OFFSET = 2f;
@@ -313,17 +313,25 @@ public class SideMenu extends ViewGroup {
 
             bottomPanel.setScaleX(scaleFactor2);
             bottomPanel.setScaleY(scaleFactor2);
+
+            onMenuSlide(panel,bottomPanel, slideOffset);
         }
 
         @Override
         public void onPanelOpened(View panel,View bottomPanel) {
 
+            onMenuOpened(panel, bottomPanel);
         }
+
+        protected abstract void onMenuOpened(View panel, View bottomPanel);
 
         @Override
         public void onPanelClosed(View panel,View bottomPanel) {
 
+            onMenuClosed(panel,bottomPanel);
         }
+
+        protected abstract void onMenuClosed(View panel, View bottomPanel);
 
         public void setOffsetDiff(float offsetDiff) {
             this.offsetDiff = offsetDiff;
@@ -331,6 +339,28 @@ public class SideMenu extends ViewGroup {
 
         public void setMenuStartOffset(float menuStartOffset) {
             this.menuStartOffset = menuStartOffset;
+        }
+
+        public abstract void onMenuSlide(View panel,View bottomPanel, float slideOffset);
+
+
+    }
+
+    public static class SimpleMenuPanelSlideListener extends MenuPanelSlideListener{
+
+        @Override
+        protected void onMenuOpened(View panel, View bottomPanel) {
+
+        }
+
+        @Override
+        protected void onMenuClosed(View panel, View bottomPanel) {
+
+        }
+
+        @Override
+        public void onMenuSlide(View panel, View bottomPanel, float slideOffset) {
+
         }
     }
 
@@ -358,7 +388,7 @@ public class SideMenu extends ViewGroup {
         mDragHelper = ViewDragHelper.create(this, 0.5f, new DragHelperCallback());
         mDragHelper.setMinVelocity(MIN_FLING_VELOCITY * density);
 
-        setPanelSlideListener(new MenuPanelSlideListener());
+        setPanelSlideListener(new SimpleMenuPanelSlideListener());
         setSliderFadeColor(ContextCompat.getColor(context, android.R.color.transparent));
         setParallaxDistance(PARALLAX_DISTANCE);
     }
