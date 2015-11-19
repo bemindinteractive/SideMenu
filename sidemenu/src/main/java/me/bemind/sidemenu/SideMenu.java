@@ -293,12 +293,17 @@ public class SideMenu extends ViewGroup {
 //                Log.d(TAG,"SlidingPanel "+vg.toString());
 //                Log.d(TAG,"SlidingPanel child count"+vg.getChildCount());
 
-                if(vg.getChildCount() > 1) throw new SideMenuSlidingPanelChildException(SideMenuSlidingPanelChildException.LIMIT_CHILD_STRING);
-                View child = vg.getChildAt(0); //first child
+                if(vg.getChildCount() > 1){
+                    panel.setPivotX(0f);
+                    panel.setScaleY(scaleFactor);
+                    panel.setScaleX(scaleFactor);
+                }else {
+                    View child = vg.getChildAt(0); //first child
 
-                child.setPivotX(0f);
-                child.setScaleX(scaleFactor);
-                child.setScaleY(scaleFactor);
+                    child.setPivotX(0f);
+                    child.setScaleX(scaleFactor);
+                    child.setScaleY(scaleFactor);
+                }
             }else {
                 panel.setPivotX(0f);
                 panel.setScaleY(scaleFactor);
