@@ -231,11 +231,11 @@ public class SideMenu extends ViewGroup {
 
     private int childHeight;
 
-    public SideMenuToggle getmSideMenuToggle() {
+    public SideMenuToggle getSideMenuToggle() {
         return mSideMenuToggle;
     }
 
-    public void setmSideMenuToggle(SideMenuToggle mSideMenuToggle) {
+    public void setSideMenuToggle(SideMenuToggle mSideMenuToggle) {
         this.mSideMenuToggle = mSideMenuToggle;
     }
 
