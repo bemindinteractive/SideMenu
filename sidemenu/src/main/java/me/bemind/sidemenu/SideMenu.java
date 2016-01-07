@@ -199,6 +199,8 @@ public class SideMenu extends ViewGroup {
 
     private PanelSlideListener mPanelSlideListener;
 
+    private SideMenuToggle mSideMenuToggle;
+
     private final ViewDragHelper mDragHelper;
 
     /**
@@ -228,6 +230,14 @@ public class SideMenu extends ViewGroup {
     }
 
     private int childHeight;
+
+    public SideMenuToggle getmSideMenuToggle() {
+        return mSideMenuToggle;
+    }
+
+    public void setmSideMenuToggle(SideMenuToggle mSideMenuToggle) {
+        this.mSideMenuToggle = mSideMenuToggle;
+    }
 
     /**
      * Listener for monitoring events about sliding panes.
@@ -457,11 +467,17 @@ public class SideMenu extends ViewGroup {
         if (mPanelSlideListener != null) {
             mPanelSlideListener.onPanelSlide(panel,bottomPanel, mSlideOffset);
         }
+        if (mSideMenuToggle != null){
+            mSideMenuToggle.onPanelSlide(panel,bottomPanel,mSlideOffset);
+        }
     }
 
     void dispatchOnPanelOpened(View panel,View bottomPanel) {
         if (mPanelSlideListener != null) {
             mPanelSlideListener.onPanelOpened(panel,bottomPanel);
+        }
+        if (mSideMenuToggle != null){
+            mSideMenuToggle.onPanelOpened(panel, bottomPanel);
         }
         sendAccessibilityEvent(AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED);
     }
@@ -469,6 +485,9 @@ public class SideMenu extends ViewGroup {
     void dispatchOnPanelClosed(View panel,View bottomPanel) {
         if (mPanelSlideListener != null) {
             mPanelSlideListener.onPanelClosed(panel,bottomPanel);
+        }
+        if (mSideMenuToggle != null){
+            mSideMenuToggle.onPanelClosed(panel,bottomPanel);
         }
         sendAccessibilityEvent(AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED);
     }
