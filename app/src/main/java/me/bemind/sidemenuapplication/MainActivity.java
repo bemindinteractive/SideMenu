@@ -2,19 +2,38 @@ package me.bemind.sidemenuapplication;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import me.bemind.sidemenu.SideMenu;
+import me.bemind.sidemenu.SideMenuToggle;
 
 public class MainActivity extends AppCompatActivity {
+
+    private Toolbar mToolbar;
+    private SideMenuToggle mActionBarDrawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         SideMenu sideMenu = (SideMenu) findViewById(R.id.side_menu);
-        sideMenu.
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+        mActionBarDrawerToggle = new SideMenuToggle(this, sideMenu, mToolbar, R.string.drawer_open, R.string.drawer_close);
+
+
+        sideMenu.post(new Runnable() {
+            @Override
+            public void run() {
+                mActionBarDrawerToggle.syncState();
+            }
+        });
+
+        sideMenu.setSideMenuToggle(
+                mActionBarDrawerToggle
+        );
     }
 
     @Override
