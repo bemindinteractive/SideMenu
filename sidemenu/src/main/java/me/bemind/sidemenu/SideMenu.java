@@ -230,6 +230,10 @@ public class SideMenu extends ViewGroup {
     }
 
     private int childHeight;
+
+    /*
+    draggedChild is a flag to check if there is a child who can be dragged
+     */
     public static boolean draggedChild = false;
 
     public SideMenuToggle getSideMenuToggle() {

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import me.bemind.sidemenu.SideMenu;
 import me.bemind.sidemenu.SideMenuToggle;
@@ -34,6 +35,13 @@ public class MainActivity extends AppCompatActivity {
         sideMenu.setSideMenuToggle(
                 mActionBarDrawerToggle
         );
+
+        findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SideMenu.draggedChild = !SideMenu.draggedChild;
+            }
+        });
     }
 
     @Override
