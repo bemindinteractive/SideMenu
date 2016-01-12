@@ -230,6 +230,7 @@ public class SideMenu extends ViewGroup {
     }
 
     private int childHeight;
+    public static boolean draggedChild = false;
 
     public SideMenuToggle getSideMenuToggle() {
         return mSideMenuToggle;
@@ -1400,7 +1401,7 @@ public class SideMenu extends ViewGroup {
         }
 
         /* special case ViewPagers, which don't properly implement the scrolling interface */
-        return checkV && (ViewCompat.canScrollHorizontally(v, -dx) ||
+        return checkV && (ViewCompat.canScrollHorizontally(v, -dx) || draggedChild ||
                 ((v instanceof ViewPager) && canViewPagerScrollHorizontally((ViewPager) v, -dx)));
 
         //return checkV && ViewCompat.canScrollHorizontally(v, (isLayoutRtlSupport() ? dx : -dx));
