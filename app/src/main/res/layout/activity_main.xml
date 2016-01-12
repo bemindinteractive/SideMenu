@@ -76,7 +76,24 @@
 
 
 
+
         </android.support.v7.widget.Toolbar>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="70dp">
+            <it.hype.components.views.DraggableLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/holo_red_dark">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TWITTER" />
+            </it.hype.components.views.DraggableLinearLayout>
+
+        </RelativeLayout>
 
     </RelativeLayout>
 
