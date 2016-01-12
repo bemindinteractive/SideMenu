@@ -83,15 +83,26 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="70dp">
-            <it.hype.components.views.DraggableLinearLayout
+            <me.bemind.draggablecomponents.DraggableLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/holo_red_dark">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TWITTER" />
-            </it.hype.components.views.DraggableLinearLayout>
+                    android:layout_gravity="center"
+                    android:text="DRAGGABLE"
+                    android:textStyle="bold"/>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="drag"
+                    android:id="@+id/button"
+                    android:layout_gravity="bottom|center_horizontal"/>
+            </me.bemind.draggablecomponents.DraggableLayout>
+
+
 
         </RelativeLayout>
 
